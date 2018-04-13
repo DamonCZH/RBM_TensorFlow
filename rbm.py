@@ -24,11 +24,13 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     
-    train_values = {
-        x:mnist.train.images,
-        y:mnist.train.labels
-    }
-    sess.run(update,feed_dict=train_values)
+    for i in range(1000):
+        batch_xs,batch_ys = mnist.train.next_batch(50)
+        train_values = {
+            x:batch_xs,
+            y:batch_ys
+        }
+        sess.run(update,feed_dict=train_values)
 
     test_values = {
         x:mnist.test.images,
