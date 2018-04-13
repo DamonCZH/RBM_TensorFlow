@@ -16,7 +16,7 @@ def rbm_layer(input_tensor,rbm,layer_name,activation=tf.nn.sigmoid):
     return output
 
 
-def train_rbm(n_vis, n_hid):
-    rbm = BBRBM(n_vis, n_hid, learning_rate=0.01, momentum=0.95, use_tqdm=True)
-    rbm.fit(mnist.train.images, n_epoches=1, batch_size=100)
+def train_rbm(n_vis, n_hid,learning_rate=0.01,momentum=0.95,n_epoches=30,batch_size=100):
+    rbm = BBRBM(n_vis, n_hid, learning_rate=learning_rate, momentum=momentum, use_tqdm=True)
+    rbm.fit(mnist.train.images, n_epoches=n_epoches, batch_size=batch_size)
     return rbm
