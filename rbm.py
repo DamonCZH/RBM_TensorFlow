@@ -4,15 +4,16 @@ from tfrbm import BBRBM
 import layer
 
 mnist = input_data.read_data_sets("D:/MNIST/MNIST_data",one_hot=True)
-
+N,D = 784,10
+h = 784
 learning_rate = 0.01
 
-x = tf.placeholder(shape=[None,784],dtype=tf.float32)
-y = tf.placeholder(shape=[None,10],dtype=tf.float32)
+x = tf.placeholder(shape=[None,N],dtype=tf.float32)
+y = tf.placeholder(shape=[None,D],dtype=tf.float32)
 
-r = layer.train_rbm(784,200)
+r = layer.train_rbm(N,h)
 hidden_layer = layer.rbm_layer(x,r,"hidden_layer")
-output_layer = layer.nn_layer(hidden_layer,200,10,"output_layer",tf.nn.softmax)
+output_layer = layer.nn_layer(hidden_layer,h,D,"output_layer",tf.nn.softmax)
 
 pred = output_layer
 loss = -tf.reduce_sum(y*tf.log(pred))
